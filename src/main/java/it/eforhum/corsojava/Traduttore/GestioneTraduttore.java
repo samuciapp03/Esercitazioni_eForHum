@@ -55,19 +55,21 @@ public class GestioneTraduttore {
 
 	public String traduciParola(String parolaItaliana, int lingua) {
 		LOG.info("tentativo di tradurre la parola [] in []", parolaItaliana, getLingua(lingua));
-		int i;
+		String result = "";
 
-		for (i = 0; i < traduttore.size(); i++) {
-			if (traduttore.get(i).getItaliano().equals(parolaItaliana) && traduttore.get(i).getLingua() == lingua)
+		for (int i = 0; i < traduttore.size(); i++) {
+			if (traduttore.get(i).getItaliano().equals(parolaItaliana) && traduttore.get(i).getLingua() == lingua) {
+				result = traduttore.get(i).getParolaTradotta();
 				break;
+			}
 		}
 
-		if (i == traduttore.size()) {
+		if (result.isEmpty()) {
 			LOG.warn("parola che si cercava di tradurre non esiste");
 			return "";
 		}
 
 		LOG.info("parola tradotta con successo");
-		return traduttore.get(i).getParolaTradotta();
+		return result;
 	}
 }

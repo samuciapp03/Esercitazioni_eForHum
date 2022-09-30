@@ -84,7 +84,7 @@ public class MainTraduttore {
 			} while (scelta.isEmpty() || (!scelta.equals("y") && !scelta.equals("n")));
 
 			System.out.println();
-		} while (scelta.equals("y"));
+		} while ("y".equals(scelta)); // modificare anche gli altri
 
 		System.out.println("Arrivederci");
 	}
