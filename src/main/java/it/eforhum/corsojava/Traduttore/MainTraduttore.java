@@ -21,7 +21,7 @@ public class MainTraduttore {
 	public static void main(String[] args) {
 		LOG.info("inizio applicazione");
 
-		GestioneTraduttore trad = new GestioneTraduttore();
+		TraduttoreInterface trad = new GestioneTraduttore();
 		String scelta = "";
 
 		do {
@@ -52,15 +52,15 @@ public class MainTraduttore {
 			} while (!trad.isLingua(lingua));
 
 			if (scelta.equals("i")) {
-				String parolaItaliana = inserisciParola(-1);
-				String parolaTradotta = inserisciParola(lingua);
+				String parolaItaliana = inserisciParola(-1, trad);
+				String parolaTradotta = inserisciParola(lingua, trad);
 
 				if (!trad.inserisciParola(parolaItaliana, lingua, parolaTradotta))
 					System.out.println("Errore, la traduzione che hai provato ad inserire e' gia' stata inserita");
 				else
 					System.out.println("\nParola inserita con successo");
 			} else {
-				String parolaItaliana = inserisciParola(-1);
+				String parolaItaliana = inserisciParola(-1, trad);
 
 				String parolaTradotta = trad.traduciParola(parolaItaliana, lingua);
 
@@ -89,10 +89,8 @@ public class MainTraduttore {
 		System.out.println("Arrivederci");
 	}
 
-	public static String inserisciParola(int lingua) {
+	public static String inserisciParola(int lingua, TraduttoreInterface trad) {
 		// -1 per parola italiana
-		GestioneTraduttore trad = new GestioneTraduttore();
-
 		String parola = "";
 
 		do {

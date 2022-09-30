@@ -5,17 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-public class GestioneTraduttore {
-	public static final Logger LOG = LogManager.getLogger(GestioneTraduttore.class);
-
+public class GestioneTraduttore implements TraduttoreInterface {
+	// Locale per utilizzare le lingue, Locale.ENGLISH per esempio
 	private static final List<String> lingue = Arrays.asList(new String[] { "inglese", "francese" });
 
 	private List<Traduttore> traduttore = new ArrayList<Traduttore>();
 	boolean check;
 
+	@Override
 	public boolean inserisciParola(String parolaItaliana, int lingua, String parolaTradotta) {
 		LOG.info("tentativo di inserire una nuova parola: [] in []", parolaItaliana, parolaTradotta);
 		check = false;
@@ -36,6 +33,7 @@ public class GestioneTraduttore {
 		return true;
 	}
 
+	@Override
 	public void printLingue(PrintStream stream) {
 		stream.println("");
 		for (int i = 0; i < lingue.size(); i++) {
@@ -43,16 +41,19 @@ public class GestioneTraduttore {
 		}
 	}
 
+	@Override
 	public boolean isLingua(int lingua) {
 		if (lingua < 0 || lingua >= lingue.size())
 			return false;
 		return true;
 	}
 
+	@Override
 	public String getLingua(int lingua) {
 		return lingue.get(lingua);
 	}
 
+	@Override
 	public String traduciParola(String parolaItaliana, int lingua) {
 		LOG.info("tentativo di tradurre la parola [] in []", parolaItaliana, getLingua(lingua));
 		String result = "";
