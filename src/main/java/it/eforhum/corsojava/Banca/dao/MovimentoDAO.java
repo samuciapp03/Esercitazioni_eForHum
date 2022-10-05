@@ -34,4 +34,8 @@ public class MovimentoDAO {
 		return mov.get(i).getData();
 	}
 
+	public int getSizeMovimenti() {
+		return mov.size();
+	}
+
 }

@@ -1,10 +1,12 @@
 package it.eforhum.corsojava.Banca;
 
+import java.io.PrintStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 import it.eforhum.corsojava.Banca.dao.ContoDAO;
 import it.eforhum.corsojava.Banca.dao.MovimentoDAO;
-import it.eforhum.corsojava.Banca.oggetti.Conto;
 
 public class GestioneConto {
 	ContoDAO conti = new ContoDAO();
@@ -16,22 +18,52 @@ public class GestioneConto {
 		if (conto == -1)
 			return false;
 
-		String iban = "IT0000";
+		Random rand = new Random();
+		String iban = "IT";
+
+		iban += String.valueOf(10000 + rand.nextInt(99999));
+		iban += String.valueOf(10000 + rand.nextInt(99999));
+		iban += String.valueOf(10000 + rand.nextInt(99999));
+		iban += String.valueOf(10000 + rand.nextInt(99999));
+		iban += String.valueOf(10000 + rand.nextInt(99999));
 
 		conti.addConto(nome, cognome, nTelefono, indirizzo, iban);
 		return true;
 	}
 
-	public boolean creaMovimento(String nome, String cognome, String tipoMovimento, int importo, String desc) {
-		return false;
+	public boolean creaMovimento(String nome, String cognome, String tipoMovimento, int importo, String desc,
+			LocalDateTime data) {
+		int conto = getConto(nome, cognome);
+
+		if (conto == -1)
+			return false;
+
+		mov.addMovimento(tipoMovimento, importo, desc, data, conto);
+		return true;
 	}
 
-	public String elencoMovimenti(String nome, String cognome, LocalDate inizio, LocalDate fine) {
-		return "";
+	public void elencoMovimenti(LocalDate inizio, LocalDate fine, PrintStream stream) {
+		if (mov.getSizeMovimenti() != 0) {
+			stream.println("Tipo del movimento \t | Importo \t | Descrizione \t | Data");
+
+			for (int i = 0; i < mov.getSizeMovimenti(); i++) {
+				stream.println("\n" + mov.getTipoMovimento(i) + ", \t " + mov.getImporto(i) + ", \t " + mov.getDesc(i)
+						+ ", \t " + mov.getData(i));
+			}
+
+		} else {
+			stream.println("Non e' ancora stato registrato alcun elemento");
+		}
+
 	}
 
 	public int getSaldo(String nome, String cognome) {
-		return 0;
+		int conto = getConto(nome, cognome);
+
+		if (conto == -1)
+			return conto;
+
+		return conti.getSaldo(conto);
 	}
 
 	public boolean ricaricaTelefonica(String nome, String cognome, int importo) {

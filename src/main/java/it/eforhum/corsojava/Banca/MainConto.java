@@ -1,6 +1,9 @@
 package it.eforhum.corsojava.Banca;
 
+import java.util.Scanner;
+
 public class MainConto {
+
 // ====================================================
 //	ESERCITAZIONE IN AUTONOMIA/GRUPPO
 //	Definire le classi necessarie a scrivere un programma in grado di simulare una gestione semplificata di un conto corrente.
@@ -14,6 +17,26 @@ public class MainConto {
 // =====================================================
 
 	public static void main(String[] args) {
+		GestioneConto conti = new GestioneConto();
+		String scelta = "";
 
+		do {
+			do {
+				System.out.println("Cosa vuoi fare? ");
+			} while (false);
+			do {
+				System.out.print("Vuoi fare un'altra operazione? (y, n)");
+				scelta = read();
+
+				if ((!"y".equals(scelta) && !"n".equals(scelta))) {
+					System.out.println("Errore, riprova");
+				}
+			} while (!"y".equals(scelta) && !"n".equals(scelta));
+		} while ("y".equals(scelta));
+	}
+
+	public static String read() {
+		Scanner insrt = new Scanner(System.in);
+		return insrt.nextLine();
 	}
 }
