@@ -71,15 +71,15 @@ public class MainNoleggio {
 
 			if ("f".equals(scelta)) {
 
-				Genere genere = Genere.valueOf(insertUpper("Inserisci il genere del film: ",
-						(v) -> EnumUtils.isValidEnum(Genere.class, v.toUpperCase())));
+				Genere genere = Genere.valueOf(
+						insertUpper("Inserisci il genere del film: ", (v) -> EnumUtils.isValidEnum(Genere.class, v)));
 
 				noleggi.addFilm(cod, titolo, dataInizio, dataFine, genere);
 
 			} else if ("g".equals(scelta)) {
 
 				Console console = Console.valueOf(insertUpper("Inserisci il tipo di console: ",
-						(v) -> (EnumUtils.isValidEnum(Console.class, v.toUpperCase()))));
+						(v) -> (EnumUtils.isValidEnum(Console.class, v))));
 
 				noleggi.addGioco(cod, titolo, dataInizio, dataFine, console);
 			}
@@ -116,12 +116,15 @@ public class MainNoleggio {
 			System.out.print("\n" + testo);
 			result = read();
 
+			result = result.toUpperCase();
+			result = result.replaceAll(" ", "_");
+
 			if (result.isEmpty() || !verify.test(result)) {
 				System.out.println("Errore, riprova");
 			}
 		} while (result.isEmpty() || !verify.test(result));
 
-		return result.toUpperCase();
+		return result;
 	}
 
 	public static String read() {
