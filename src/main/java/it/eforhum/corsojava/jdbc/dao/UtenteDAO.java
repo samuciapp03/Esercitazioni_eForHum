@@ -70,7 +70,11 @@ public class UtenteDAO {
 	private Connection openConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
-		return DriverManager.getConnection("jdbc:mysql://192.168.64.16:3306/jdbcdemo", "root", "root");
+		// CentOS VM Docker
+//		return DriverManager.getConnection("jdbc:mysql://192.168.64.16:3306/jdbcdemo", "root", "root");
+
+		// Localhost Docker
+		return DriverManager.getConnection("jdbc:mysql://localhost:5000/jdbcdemo", "root", "root");
 	}
 
 }
