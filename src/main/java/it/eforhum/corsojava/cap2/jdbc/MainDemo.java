@@ -10,8 +10,11 @@ public class MainDemo {
 		System.out.println(UtenteService.getInstance().findById(1));
 
 		Utente user = new Utente("ciappe", "ciappe", "samuel", "ciappesoni", LocalDateTime.now(), "admin");
-		UtenteService.getInstance().insertUtente(user);
 
-		System.out.println(user.toString());
+		if (!UtenteService.getInstance().insertUtente(user))
+			System.out.println("Username gia' utilizzato");
+
+		else
+			System.out.println(user.toString());
 	}
 }

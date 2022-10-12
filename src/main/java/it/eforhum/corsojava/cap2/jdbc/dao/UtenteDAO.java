@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
@@ -69,7 +70,7 @@ public class UtenteDAO {
 		return result;
 	}
 
-	public void insertUtente(Utente user) {
+	public boolean insertUtente(Utente user) {
 		try {
 			// ottenere connessione alla base dati
 			Connection conn = openConnection();
@@ -96,9 +97,15 @@ public class UtenteDAO {
 			else
 				user.setIdUtente(-1);
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
+			return false;
+		}
+
+		catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException("errore nella lettura del database", e);
 		}
+
+		return true;
 	}
 
 	private Connection openConnection() throws ClassNotFoundException, SQLException {
@@ -109,6 +116,9 @@ public class UtenteDAO {
 
 		// Localhost Docker
 		return DriverManager.getConnection("jdbc:mysql://localhost:5000/jdbcdemo", "root", "root");
+
+		// Localhost
+//		return DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbcdemo", "root", "root");
 	}
 
 }

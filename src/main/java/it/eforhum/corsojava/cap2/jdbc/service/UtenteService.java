@@ -18,8 +18,8 @@ public class UtenteService {
 		return UtenteDAO.getInstance().findById(id);
 	}
 
-	public void insertUtente(Utente user) {
-		UtenteDAO.getInstance().insertUtente(user);
+	public boolean insertUtente(Utente user) {
+		return UtenteDAO.getInstance().insertUtente(user);
 	}
 
 }
